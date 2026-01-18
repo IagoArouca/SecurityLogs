@@ -9,6 +9,7 @@ interface AuthContextData {
     signed: boolean;
     loading: boolean;
     signIn(credentials: object): Promise<void>;
+    signOut(): void;
 }
 
 interface AuthProviderProps {
@@ -51,8 +52,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.setItem('@App:user', JSON.stringify(userResponse));
     }
 
+    function signOut() {
+        localStorage.removeItem('@App:token');
+        localStorage.removeItem('@App:user');
+
+        delete api.defaults.headers.Authorizarion;
+
+        setUser(null);
+    }
+
     return (
-        <AuthContext.Provider value={{signed: !!user, user, loading, signIn}}>
+        <AuthContext.Provider value={{signed: !!user, user, loading, signIn, signOut}}>
             {children}
         </AuthContext.Provider>
     )
