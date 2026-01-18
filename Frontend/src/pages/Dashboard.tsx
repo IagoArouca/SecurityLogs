@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ShieldCheck, ShieldAlert, Globe, Users  } from "lucide-react";
 import { generateMockLogs } from "../services/mockSecurityService";
 import type { SecurityLog } from "../@types/security";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "lucide-react";
 
 export default function Dashboard() {
     const [logs, setLogs] = useState<SecurityLog[]>([]);
@@ -23,6 +24,19 @@ export default function Dashboard() {
         log.userEmail.toLowerCase().includes(filter.toLowerCase())
     );
 
+    const severityData = [
+        { name: 'Baixa', value: logs.filter(l => l.severity === 'LOW').length, color: '#3b82f6' },
+        { name: 'Média', value: logs.filter(l => l.severity === 'MEDIUM').length, color: '#eab308' },
+        { name: 'Alta', value: logs.filter(l => l.severity === 'HIGH').length, color: '#f97316' },
+        { name: 'Crítica', value: logs.filter(l => l.severity === 'CRITICAL').length, color: '#ef4444' },
+    ];
+
+    const eventData = [
+        { name: 'Sucesso', total: logs.filter(l => l.event === 'LOGIN_SUCCESS').length },
+        { name: 'Falha', total: logs.filter(l => l.event === 'LOGIN_FAILED').length },
+        { name: 'Logout', total: logs.filter(l => l.event === 'LOGOUT').length },
+    ];
+
     return (
         <div className="p-8 bg-gray-50 min-h-screen">
             <header className="mb-8">
@@ -37,7 +51,7 @@ export default function Dashboard() {
                 <StatCard title="Alertas Críticos" value={stats.critical} icon={<ShieldCheck size={24}/>} color="red" />
             </div>
 
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-6 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <h2 className="text-lg font-bold text-gray-800">Logs de Auditoria</h2>
           
