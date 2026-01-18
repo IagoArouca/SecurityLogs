@@ -1,0 +1,13 @@
+model SecurityLog {
+    id          String      @id @default(uuid())
+    userId      String?     
+    userEmail   String?
+    event       String
+    ip          String
+    location    String?
+    userAgent   String
+    severity    String      @default("LOW")
+    createdAt   DateTime    @default(now())
+
+    user        User?       @relation(fields: [userId], references: [id])
+}
