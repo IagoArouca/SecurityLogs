@@ -13,7 +13,7 @@ interface AuthContextData {
 }
 
 interface AuthProviderProps {
-    /** Componentes que terão acesso aos dados de autenticação */
+
     children: ReactNode
 }
 
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 
     async function signIn(credentials: object) {
-        const response = await api.post<LoginResponse>('/login', credentials);
+        const response = await api.post<LoginResponse>('/auth/login', credentials);
         const { token, user: userResponse } = response.data;
 
         setUser(userResponse);

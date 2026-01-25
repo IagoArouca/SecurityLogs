@@ -1,16 +1,16 @@
 import AppRoutes from "./pages/routes/AppRoutes";
-import { useAuth } from "./hooks/useAuth";
+import { AuthProvider } from "./contexts/AuthContext"; 
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  const { loading } = useAuth();
-
-  if (loading) return null;
-
   return (
-    <div className="min-h-screen bg-gray-50"> 
-      <AppRoutes />
-    </div>
+    <AuthProvider>
+      <div className="min-h-screen bg-gray-50">
+        <AppRoutes />
+        <Toaster position="top-right" /> 
+      </div>
+    </AuthProvider>
   );
 }
 
-export default App
+export default App;

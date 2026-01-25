@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Eye, EyeOff, Lock, Mail, User, Loader2, ArrowLeft } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, Loader2, ArrowLeft, ShieldCheck } from 'lucide-react';
 import type { ChangeEvent, FormEvent } from "react"
 import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -32,7 +32,6 @@ export default function Register() {
         setLoading(true);
 
         try {
-            
             await api.post('/users', { 
                 name: formData.name, 
                 email: formData.email, 
@@ -49,24 +48,32 @@ export default function Register() {
     }
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 px-4">
-            <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+
+        <div className="min-h-screen w-full flex items-center justify-center bg-[#0f172a] bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-slate-950 px-4">
+
+            <div className="w-full max-w-md bg-white/5 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-white/10 my-8">
+                
                 <div className="mb-6">
-                    <Link to="/" className="text-sm text-blue-600 flex items-center gap-1 hover:underline font-medium">
-                        <ArrowLeft size={16} /> Voltar para o login
+                    <Link to="/" className="text-sm text-amber-500 flex items-center gap-2 hover:text-amber-400 transition-colors font-medium group">
+                        <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
+                        Voltar para o login
                     </Link>
                 </div>
 
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Crie sua conta</h1>
-                    <p className="text-gray-500 mt-2">Cadastre-se para acessar o painel de auditoria</p>
+                    <div className="bg-amber-500 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/20">
+                        <ShieldCheck className="text-slate-900" size={24} />
+                    </div>
+                    <h1 className="text-3xl font-bold text-white tracking-tight">Criar Conta</h1>
+                    <p className="text-slate-400 mt-2">Cadastre-se no sistema Lemur</p>
                 </div>
 
                 <form onSubmit={handleRegister} className="space-y-4">
-                    <div className="space-y-1">
-                        <label className="text-sm font-semibold text-gray-700 ml-1">Nome Completo</label>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    
+                    <div className="space-y-1.5">
+                        <label className="text-sm font-medium text-slate-300 ml-1">Nome Completo</label>
+                        <div className="relative group">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-amber-500 transition-colors">
                                 <User size={18} />
                             </div>
                             <input
@@ -75,16 +82,16 @@ export default function Register() {
                                 required
                                 value={formData.name}
                                 onChange={handleChange}
-                                placeholder="Seu nome"
-                                className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all bg-gray-50/50"
+                                placeholder="Como devemos te chamar?"
+                                className="block w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-2xl text-white placeholder-slate-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 outline-none transition-all"
                             />
                         </div>
                     </div>
 
-                    <div className="space-y-1">
-                        <label className="text-sm font-semibold text-gray-700 ml-1">E-mail</label>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <div className="space-y-1.5">
+                        <label className="text-sm font-medium text-slate-300 ml-1">E-mail</label>
+                        <div className="relative group">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-amber-500 transition-colors">
                                 <Mail size={18} />
                             </div>
                             <input
@@ -94,15 +101,14 @@ export default function Register() {
                                 value={formData.email}
                                 onChange={handleChange}
                                 placeholder="seu@email.com"
-                                className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all bg-gray-50/50"
+                                className="block w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-2xl text-white placeholder-slate-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 outline-none transition-all"
                             />
                         </div>
                     </div>
-
-                    <div className="space-y-1">
-                        <label className="text-sm font-semibold text-gray-700 ml-1">Senha</label>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <div className="space-y-1.5">
+                        <label className="text-sm font-medium text-slate-300 ml-1">Senha</label>
+                        <div className="relative group">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-amber-500 transition-colors">
                                 <Lock size={18} />
                             </div>
                             <input
@@ -112,22 +118,22 @@ export default function Register() {
                                 value={formData.password}
                                 onChange={handleChange}
                                 placeholder="••••••••"
-                                className="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all bg-gray-50/50"
+                                className="block w-full pl-12 pr-12 py-3 bg-slate-800/50 border border-slate-700 rounded-2xl text-white placeholder-slate-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 outline-none transition-all"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                                className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-500 hover:text-amber-500 transition-colors"
                             >
                                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
                         </div>
                     </div>
 
-                    <div className="space-y-1">
-                        <label className="text-sm font-semibold text-gray-700 ml-1">Confirmar Senha</label>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <div className="space-y-1.5">
+                        <label className="text-sm font-medium text-slate-300 ml-1">Confirmar Senha</label>
+                        <div className="relative group">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-amber-500 transition-colors">
                                 <Lock size={18} />
                             </div>
                             <input
@@ -137,7 +143,7 @@ export default function Register() {
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                                 placeholder="Repita a senha"
-                                className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all bg-gray-50/50"
+                                className="block w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-2xl text-white placeholder-slate-500 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 outline-none transition-all"
                             />
                         </div>
                     </div>
@@ -145,12 +151,12 @@ export default function Register() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-lg shadow-blue-100 flex items-center justify-center gap-2 disabled:opacity-70 mt-4"
+                        className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-4 px-4 rounded-2xl transition-all shadow-xl shadow-amber-500/10 flex items-center justify-center gap-2 disabled:opacity-70 mt-6"
                     >
                         {loading ? (
                             <>
                                 <Loader2 className="animate-spin" size={20} />
-                                Criando conta...
+                                Criando acesso...
                             </>
                         ) : (
                             "Finalizar Cadastro"
