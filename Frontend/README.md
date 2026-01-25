@@ -1,6 +1,6 @@
-# 🛡️ Guardiana - Sistema de Autenticação & Auditoria
+# 🛡️ LemurLog - Sistema de Autenticação & Auditoria
 
-O **Guardiana** é uma plataforma Full Stack robusta desenvolvida para gerenciamento de usuários e controle de acesso. O projeto utiliza as versões mais recentes do ecossistema Node.js, com foco em segurança, performance e escalabilidade.
+O **LemurLog** é uma plataforma Full Stack robusta desenvolvida para gerenciamento de usuários e controle de acesso. O projeto utiliza as versões mais recentes do ecossistema Node.js, com foco em segurança, performance e escalabilidade.
 
 
 
