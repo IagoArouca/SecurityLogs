@@ -12,13 +12,11 @@ export class AuthService {
         private prisma: PrismaService,
     ) {}
 
-    // 1. Verifique se o 'ip' está declarado aqui nos parâmetros!
     async signIn(email: string, pass: string, ip?: string) {
         const user = await this.usersService.findByEmail(email);
 
         const isMatch = user ? await bcrypt.compare(pass, user.password) : false;
 
-        // 2. Aqui o Prisma usará o 'ip' que vem do parâmetro acima
         await this.prisma.log.create({
             data: {
                 event: isMatch ? 'LOGIN_SUCCESS' : 'LOGIN_FAILURE',
